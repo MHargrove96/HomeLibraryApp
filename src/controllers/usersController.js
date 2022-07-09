@@ -23,18 +23,17 @@ const getUserByID = (req, res) => {
   });
 };
 
-const createUser = async (req, res) => {
-  let { user_name, first_name, last_name, email, user_password } =
-    req.body;
+const createUser = async (req, res, next) => {
+  let { user_name, first_name, last_name, email, user_password } = req.body;
   let hash = await argon2.hash(user_password, { hashLength: 50 });
-  
+
   let sql =
     "INSERT INTO users(user_name, first_name, last_name, email, user_password) VALUES (?, ?, ?, ?, ? )";
   sql = mysql.format(sql, [user_name, first_name, last_name, email, hash]);
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err);
-    return res.json({ newId: results.insertId, results: results });
+    return next()
   });
 };
 
