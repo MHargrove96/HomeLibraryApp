@@ -42,8 +42,6 @@ const getBookByTitle = (req, res) => {
 const addBook = (req, res) => {
   const { user_name, permissions, user_id } = req;
   req.body.user_id = user_id;
-
-  console.log(req.body);
   let sql = "INSERT INTO ?? SET ?";
   let values = {
     ...req.body,

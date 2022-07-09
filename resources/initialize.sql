@@ -1,4 +1,4 @@
-USE /*DATABASE*/
+USE
 
 CREATE TABLE users ( 
 user_id int auto_increment NOT NULL UNIQUE,

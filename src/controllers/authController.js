@@ -47,7 +47,6 @@ const login = async (req, res) => {
 };
 
 const checkJWT = (req, res, next) => {
-  console.log("checkJWT function");
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];

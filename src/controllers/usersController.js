@@ -14,7 +14,6 @@ const getUserByID = (req, res) => {
   const { id } = req.params;
   let sql = "SELECT * FROM ?? WHERE ?? = ?";
   sql = mysql.format(sql, ["users", "user_id", id]);
-  //remove hashed password from the results
 
   pool.query(sql, (err, rows) => {
     if (err) return handleSQLError(res, err);
@@ -66,7 +65,6 @@ const editUser = (req, res) => {
 
 const removeUser = (req, res) => {
   const { id } = req.params;
-  console.log(req.user_id, "user_id", id, "params_id");
   if (req.user_id !== Number(id)) {
     return res.status(401).json("please log in as user");
   }
