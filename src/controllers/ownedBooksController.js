@@ -3,10 +3,12 @@ const pool = require("../sql/connection");
 const { handleSQLError } = require("../sql/error");
 
 const listAllBooks = (req, res) => {
-  pool.query(
-    "SELECT * FROM owned_books WHERE ?? = ?",
-    ["user_id", req.id],
-    (err, rows) => {
+  
+  let sql = "SELECT * FROM owned_books WHERE ?? = ?"
+  let values = ["user_id", req.user_id];
+  sql = mysql.format(sql, values);
+
+  pool.query(sql, (err, rows) => {
       if (err) return handleSQLError(res, err);
       return res.json(rows);
     }
