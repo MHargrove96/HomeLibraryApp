@@ -3,10 +3,14 @@ const pool = require("../sql/connection");
 const { handleSQLError } = require("../sql/error");
 
 const listAllBooks = (req, res) => {
-  pool.query("SELECT * FROM owned_books", (err, rows) => {
-    if (err) return handleSQLError(res, err);
-    return res.json(rows);
-  });
+  pool.query(
+    "SELECT * FROM owned_books WHERE ?? = ?",
+    ["user_id", req.id],
+    (err, rows) => {
+      if (err) return handleSQLError(res, err);
+      return res.json(rows);
+    }
+  );
 };
 
 const getBookByid = (req, res) => {
@@ -52,7 +56,6 @@ const addBook = (req, res) => {
 };
 
 const removeBook = (req, res) => {
-  console.log()
   let { id } = req.params;
   let sql = "DELETE FROM ?? WHERE ?? = ?";
   sql = mysql.format(sql, ["owned_books", "ownedbook_id", id]);

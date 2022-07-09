@@ -3,7 +3,7 @@ const router = express.Router();
 const ownedBooksController = require("../controllers/ownedBooksController");
 const { checkJWT } = require("../controllers/authController");
 
-router.get("/", ownedBooksController.listAllBooks);
+router.get("/", checkJWT, ownedBooksController.listAllBooks);
 router.get("/:id", ownedBooksController.getBookByid);
 router.get("/:title", ownedBooksController.getBookByTitle);
 router.post("/", checkJWT, ownedBooksController.addBook);
