@@ -52,6 +52,7 @@ const addBook = (req, res) => {
 };
 
 const removeBook = (req, res) => {
+  console.log()
   let { id } = req.params;
   let sql = "DELETE FROM ?? WHERE ?? = ?";
   sql = mysql.format(sql, ["owned_books", "ownedbook_id", id]);
